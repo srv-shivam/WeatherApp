@@ -27,12 +27,6 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }, 3000)
-
         mFusedLocation = LocationServices.getFusedLocationProviderClient(this)
 
         getLastLocation()
@@ -49,8 +43,13 @@ class SplashScreen : AppCompatActivity() {
                     if (location == null) {
                         NewLocation()
                     } else {
-                        Toast.makeText(this, location.latitude.toString(), Toast.LENGTH_SHORT)
-                            .show()
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.putExtra("lat", location.latitude.toString())
+                            intent.putExtra("long", location.longitude.toString())
+                            startActivity(intent)
+                            finish()
+                        }, 3000)
                     }
                 }
             } else {
