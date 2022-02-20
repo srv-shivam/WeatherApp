@@ -36,7 +36,6 @@ class SplashScreen : AppCompatActivity() {
 
     }
 
-
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
         if (CheckPermission()) {
@@ -88,6 +87,10 @@ class SplashScreen : AppCompatActivity() {
      */
     private fun LocationEnable(): Boolean {
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        ///TODO:: To implement coroutine, so that before this step doesn't complete we not to move next step
+//        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+//        startActivity(intent)
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
